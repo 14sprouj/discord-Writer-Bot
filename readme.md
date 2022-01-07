@@ -72,7 +72,7 @@ At the time of writing this, the bot is now in over 7000 servers and (for the mo
 
 <!-- USAGE EXAMPLES -->
 ## Bot Usage
-
+Please note that we are currently in the process of migrating to slash commands. This means that some commands will use the old "!" prefix and some will use slash (/) commands.
 
 **Writing-related commands**
 
@@ -96,13 +96,13 @@ At the time of writing this, the bot is now in over 7000 servers and (for the mo
 
 `!8ball`: Ask the magic 8-ball a question. Your question will be routed to a text-processing AI and broken down into character sets, in order to properly analyze the content of the question and provide a meaningful answer.
 
-`!flip`: Flips a coin
+`/flip`: Flips a coin
 
-`!quote`: Gives you random motivational quote
+`/quote`: Gives you random motivational quote
 
-`!reassure`: Gives you reassurance/motivation
+`/reassure`: Gives you reassurance/motivation
 
-`!roll`: Rolls a dice between 1-6, or 1 and a specified number
+`/roll`: Rolls a dice between 1-6, or 1 and a specified number
 
 `!xp`: Checks your server Experience Points and Level. Use the "top" flag to see the top 10 on this server.
 
@@ -116,9 +116,9 @@ At the time of writing this, the bot is now in over 7000 servers and (for the mo
 
 `!mysetting`: Allows you to set user configuration values, such as your timezone
 
-`!ping`: Ping the bot to check the latency
+`/ping`: Ping the bot to check the latency
 
-`!profile`: Displays your user statistics
+`/profile`: Displays your user statistics
 
 `!reset`: Allows you to reset your stats
 

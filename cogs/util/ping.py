@@ -1,6 +1,8 @@
-import discord, lib
-from discord.ext import commands
+import lib
 from structures.guild import Guild
+from discord.ext import commands
+from discord_slash import cog_ext, SlashContext
+
 
 class Ping(commands.Cog):
 
@@ -9,10 +11,18 @@ class Ping(commands.Cog):
 
     @commands.command(name="ping")
     @commands.guild_only()
-    async def ping(self, context):
+    async def old(self, context):
+        await context.send(lib.get_string('err:slash', context.guild.id))
+
+    @cog_ext.cog_slash(name="ping", description="Displays latency between client and bot")
+    async def ping(self, context: SlashContext):
         """
         Displays latency between client and bot
+
+        :param SlashContext context: SlashContext object
+        :rtype: void
         """
+        await context.defer()
         if not Guild(context.guild).is_command_enabled('ping'):
             return await context.send(lib.get_string('err:disabled', context.guild.id))
 

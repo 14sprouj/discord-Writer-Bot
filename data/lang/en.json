@@ -1,5 +1,5 @@
 {
-    "err:slash": "This command has been migrated to use a Slash Command. More info: https://github.com/cwarwicker/discord-Writer-Bot/wiki/Slash-Commands",
+    "err:slash": "This command has been migrated to use a Slash Command. More info: <https://github.com/cwarwicker/discord-Writer-Bot/wiki/Slash-Commands>",
     "err:nouser": "Error: Could not find that user",
     "err:validamount": "Error: Please enter a valid amount",
     "err:unknown": "Error: Something went wrong, please try again. (If this error persists, please report it on the Writer-Bot-Support server, with steps to replicate the error).\n\nError Code: **{}**",
@@ -42,7 +42,9 @@
     "8ball:18": ":red_circle: Outlook not so good",
     "8ball:19": ":red_circle: Very doubtful",
     "8ball:20": ":red_circle: Absolutely not",
+    "8ball:yourquestion": "In answer to your question \"{}\"\n",
 
+    "profile:your": "Your Profile",
     "profile:lvlxp": "Lvl (XP)" ,
     "profile:words": "Words Written" ,
     "profile:wordssprints": "Words Written in Sprints" ,

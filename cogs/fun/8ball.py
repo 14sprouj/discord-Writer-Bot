@@ -1,67 +1,54 @@
 import random
 import lib
-import discord
 from discord.ext import commands
-from structures.wrapper import CommandWrapper
+from discord_slash import cog_ext, SlashContext
+from discord_slash.model import SlashCommandOptionType
+from discord_slash.utils.manage_commands import create_option
 from structures.guild import Guild
 
-
-class EightBall(commands.Cog, CommandWrapper):
+class EightBall(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self._arguments = [
-            {
-                'key': 'question',
-                'prompt': '8ball:arguments',
-                'required': True
-            }
-        ]
 
     @commands.command(name="8ball")
     @commands.guild_only()
-    async def _8ball(self, context, question=None):
-        """
-        Ask the magic 8-ball a question. Your question will be routed to a text-processing AI in order to properly analyze the content of the question and provide a meaningful answer.
+    async def old(self, context):
+        await context.send(lib.get_string('err:slash', context.guild.id))
 
-        Examples: !8ball Should I do some writing?
+    @cog_ext.cog_slash(name="8ball",
+                       description="Ask the magic 8ball a question",
+                       options=[
+                           create_option(name="question",
+                                         description="What is your question for the magic 8ball?",
+                                         option_type=SlashCommandOptionType.STRING,
+                                         required=True)
+                       ])
+    async def _8ball(self, context: SlashContext, question: str):
         """
+        Ask the magic 8-ball a question.
+
+        :param SlashContext context: SlashContext object
+        :param str question: The question the user is asking
+        :rtype: void
+        """
+
+        # Send "bot is thinking" message, to avoid failed commands if latency is high.
+        await context.defer()
+
+        # Make sure the guild has this command enabled.
         if not Guild(context.guild).is_command_enabled('8ball'):
-            return await context.send(lib.get_string('err:disabled', context.guild.id))
+            return await context.send(lib.get_string('err:disabled', context.guild_id))
 
-        guild_id = context.guild.id
-
-        # Check the arguments were all supplied and get a dict list of them and their values, after any prompts
-        args = await self.check_arguments(context, question=question)
-        if not args:
-            return
-
-        # Overwrite variable from check_arguments()
-        question = args['question']
-
-        # Create array of possible answers to choose from
-        answers = []
-
-        # Load all 21 possible answers into an array to pick from
-        for i in range(21):
-            answers.append( lib.get_string('8ball:'+format(i), guild_id) )
+        guild_id = context.guild_id
 
         # Pick a random answer
-        answer = random.choice(answers)
+        i: int = random.randrange(21)
+        answer: str = lib.get_string(f"8ball:{i}", guild_id)
 
         # Send the message
-        await context.send( context.message.author.mention + ', ' + format(answer) )
+        await context.send(context.author.mention + ', ' + lib.get_string('8ball:yourquestion', guild_id).format(question) + answer)
 
-    # @_8ball.error
-    # async def _8ball_error(self, context, error):
-    #     """
-    #
-    #     :param context:
-    #     :param error:
-    #     :return:
-    #     """
-    #     if not isinstance(error, discord.ext.commands.errors.NoPrivateMessage):
-    #         print(error)
 
 def setup(bot):
     bot.add_cog(EightBall(bot))
